@@ -1,0 +1,14 @@
+<% content_for :title, "#{@account.name} · terramanage" %>
+
+<section class="narrow-page">
+  <%= link_to "← Chart of accounts", accounts_path, class: "back-link" %>
+  <div class="panel detail-panel">
+    <p class="eyebrow"><%= @account.number %> · <%= @account.type_name %></p>
+    <h1><%= @account.name %></h1>
+    <dl>
+      <div><dt>Main account</dt><dd><%= @account.parent&.name || "None" %></dd></div>
+      <div><dt>Status</dt><dd><%= @account.active? ? "Active" : "Inactive" %></dd></div>
+    </dl>
+    <%= link_to "Edit account", edit_account_path(@account), class: "button button-primary" %>
+  </div>
+</section>

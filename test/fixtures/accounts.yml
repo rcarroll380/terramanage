@@ -1,0 +1,21 @@
+rental_income:
+  book: my_rentals
+  account_type: 1
+  name: Rental Income
+  number: "3000"
+  active: true
+
+base_rent:
+  book: my_rentals
+  parent: rental_income
+  account_type: 1
+  name: Base Rent
+  number: "3010"
+  active: true
+
+repairs:
+  book: my_rentals
+  account_type: 2
+  name: Repairs
+  number: "4000"
+  active: true

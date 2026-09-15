@@ -1,0 +1,55 @@
+<%= form_with(model: account, class: "account-form") do |form| %>
+  <% if account.errors.any? %>
+    <div class="validation-errors">
+      <strong><%= pluralize(account.errors.count, "problem") %> prevented this account from being saved:</strong>
+      <ul>
+        <% account.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field-grid">
+    <div class="field field-wide">
+      <%= form.label :name, "Account name" %>
+      <%= form.text_field :name, placeholder: "Rental Income", autofocus: true %>
+      <p class="field-help">Use a name that will make sense on reports.</p>
+    </div>
+
+    <div class="field">
+      <%= form.label :number, "Account number" %>
+      <%= form.text_field :number, placeholder: "3000", inputmode: "numeric" %>
+      <p class="field-help">Numbers control the display order.</p>
+    </div>
+
+    <div class="field">
+      <%= form.label :account_type, "Type" %>
+      <%= form.select :account_type, Account.account_types.keys.map { |type| [type.humanize, type] }, { prompt: "Choose a type" } %>
+      <p class="field-help">A subaccount must use the same type as its parent.</p>
+    </div>
+
+    <div class="field field-wide">
+      <%= form.label :parent_id, "Main account" %>
+      <%= form.collection_select :parent_id,
+        @current_book.accounts.where.not(id: account.id).ordered,
+        :id,
+        proc { |candidate| "#{candidate.number} — #{candidate.name}" },
+        { include_blank: "None — this is a main account" } %>
+      <p class="field-help">Choose a main account to make this a subaccount.</p>
+    </div>
+
+    <label class="check-field field-wide">
+      <%= form.checkbox :active %>
+      <span>
+        <strong>Active account</strong>
+        <small>Inactive accounts remain in history but cannot be used for new activity.</small>
+      </span>
+    </label>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to "Cancel", accounts_path, class: "button button-secondary" %>
+    <%= form.submit account.persisted? ? "Save changes" : "Create account", class: "button button-primary" %>
+  </div>
+<% end %>

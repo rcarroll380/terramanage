@@ -1,0 +1,12 @@
+<div id="<%= dom_id account %>" class="account-row <%= "is-inactive" unless account.active? %>">
+  <div class="account-number"><%= account.number %></div>
+  <div class="account-name" style="--account-depth: <%= depth %>">
+    <% if depth.positive? %><span class="branch" aria-hidden="true">↳</span><% end %>
+    <%= link_to account.name, edit_account_path(account) %>
+  </div>
+  <div><span class="type-badge type-<%= account.account_type %>"><%= account.type_name %></span></div>
+  <div><span class="status-dot <%= "inactive" unless account.active? %>"></span><%= account.active? ? "Active" : "Inactive" %></div>
+  <div class="row-action"><%= link_to "Edit", edit_account_path(account), class: "text-link" %></div>
+</div>
+
+<%= render partial: "account", collection: account.subaccounts, locals: { depth: depth + 1 } %>
