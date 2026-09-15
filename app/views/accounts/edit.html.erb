@@ -1,0 +1,22 @@
+<% content_for :title, "Edit #{@account.name} · terramanage" %>
+
+<section class="narrow-page">
+  <%= link_to "← Chart of accounts", accounts_path, class: "back-link" %>
+  <div class="form-heading">
+    <p class="eyebrow"><%= @account.number %> · <%= @account.type_name %></p>
+    <h1>Edit account</h1>
+    <p>Update this account's details or its place in the hierarchy.</p>
+  </div>
+
+  <div class="panel form-panel">
+    <%= render "form", account: @account %>
+  </div>
+
+  <div class="danger-zone">
+    <div>
+      <strong>Delete account</strong>
+      <p>Accounts with subaccounts cannot be deleted.</p>
+    </div>
+    <%= button_to "Delete account", @account, method: :delete, class: "button button-danger", form: { data: { turbo_confirm: "Delete #{@account.name}?" } } %>
+  </div>
+</section>

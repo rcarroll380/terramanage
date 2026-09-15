@@ -1,0 +1,33 @@
+<% content_for :title, "Chart of accounts · terramanage" %>
+
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">Bookkeeping setup</p>
+    <h1>Chart of accounts</h1>
+    <p class="lede">Define how money is organized in <%= @current_book.name %>. Use subaccounts when you want more detail under a main account.</p>
+  </div>
+  <%= link_to "New account", new_account_path, class: "button button-primary" %>
+</section>
+
+<section class="panel">
+  <% if @accounts.any? %>
+    <div class="account-table-header" aria-hidden="true">
+      <span>Number</span>
+      <span>Account</span>
+      <span>Type</span>
+      <span>Status</span>
+      <span></span>
+    </div>
+
+    <div class="account-list">
+      <%= render partial: "account", collection: @accounts, locals: { depth: 0 } %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <div class="empty-icon" aria-hidden="true">↳</div>
+      <h2>No accounts yet</h2>
+      <p>Start with a bank, income, expense, or credit card account. You can organize it into subaccounts at any time.</p>
+      <%= link_to "Create the first account", new_account_path, class: "button button-primary" %>
+    </div>
+  <% end %>
+</section>
