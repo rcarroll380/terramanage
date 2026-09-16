@@ -45,6 +45,23 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to accounts_url
   end
 
+  test "treats a blank parent as a top-level account" do
+    assert_difference("Account.count") do
+      post accounts_url, params: {
+        account: {
+          account_type: "expense",
+          active: true,
+          name: "Insurance",
+          number: "4100",
+          parent_id: ""
+        }
+      }
+    end
+
+    assert_nil Account.order(:created_at).last.parent_id
+    assert_redirected_to accounts_url
+  end
+
   test "shows an account" do
     get account_url(@account)
     assert_response :success
