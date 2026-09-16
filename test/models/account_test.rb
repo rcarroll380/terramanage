@@ -1,6 +1,17 @@
 require "test_helper"
 
 class AccountTest < ActiveSupport::TestCase
+  test "assigns UUID primary and foreign keys" do
+    account = books(:my_rentals).accounts.create!(
+      account_type: :expense,
+      name: "Insurance",
+      number: "4100"
+    )
+
+    assert_match(/\A[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\z/, account.id)
+    assert_equal books(:my_rentals).id, account.book_id
+  end
+
   test "supports a subaccount under an account of the same type" do
     account = Account.new(
       book: books(:my_rentals),
