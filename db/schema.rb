@@ -11,21 +11,21 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.1].define(version: 2026_09_15_225304) do
-  create_table "accounts", force: :cascade do |t|
+  create_table "accounts", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.integer "account_type", null: false
     t.boolean "active", default: true, null: false
-    t.integer "book_id", null: false
+    t.string "book_id", limit: 36, null: false
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.string "number", null: false
-    t.integer "parent_id"
+    t.string "parent_id", limit: 36
     t.datetime "updated_at", null: false
     t.index ["book_id", "number"], name: "index_accounts_on_book_id_and_number", unique: true
     t.index ["book_id"], name: "index_accounts_on_book_id"
     t.index ["parent_id"], name: "index_accounts_on_parent_id"
   end
 
-  create_table "books", force: :cascade do |t|
+  create_table "books", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
