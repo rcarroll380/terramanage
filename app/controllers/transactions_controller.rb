@@ -36,7 +36,7 @@ class TransactionsController < ApplicationController
 
   private
     def set_current_book
-      @current_book = Book.first_or_create!(name: "My rentals")
+      @current_book = Book.find_or_create_by!(name: "My rentals")
     end
 
     def set_transaction

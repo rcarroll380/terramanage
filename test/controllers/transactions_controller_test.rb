@@ -11,6 +11,8 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "#transaction_40000000-0000-4000-8000-000000000001 .transaction-balance", text: "$1,500.00"
     assert_select "input[name='transaction[reconciled]']", count: 0
     assert_select ".transaction-memo input[name='transaction[memo]']", count: 3
+    assert_select ".payment-field input", count: 3
+    assert_select ".deposit-field input", count: 3
   end
 
   test "creates a transaction for the current book" do

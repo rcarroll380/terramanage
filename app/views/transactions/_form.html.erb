@@ -3,16 +3,17 @@
   model: transaction,
   url: transaction.persisted? ? transaction_path(transaction) : transactions_path,
   method: transaction.persisted? ? :patch : :post,
-  class: "transaction-row #{"transaction-new" if local_assigns[:new_transaction]}"
+  class: "transaction-row #{"transaction-new" if local_assigns[:new_transaction]}",
+  data: { controller: "transaction-amounts", action: "input->transaction-amounts#toggleFields" }
 ) do |form| %>
   <div><%= form.date_field :date, aria: { label: "Date" } %></div>
   <div><%= form.text_field :number, aria: { label: "Number" }, placeholder: "Check #" %></div>
   <div><%= form.select :entity_id, options_from_collection_for_select(@entities, :id, ->(entity) { "#{entity.name} (#{entity.entity_type})" }, transaction.entity_id), { prompt: "Choose entity" }, required: true, aria: { label: "Entity" } %></div>
-  <div><%= form.number_field :payment, step: 0.01, min: 0, aria: { label: "Payment" } %></div>
-  <div><%= form.number_field :deposit, step: 0.01, min: 0, aria: { label: "Deposit" } %></div>
+  <div class="transaction-amount-field payment-field"><span class="currency-prefix">$</span><%= form.text_field :payment, value: (transaction.payment.to_d.zero? ? "" : number_to_currency(transaction.payment, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "payment" }, aria: { label: "Payment" } %></div>
+  <div class="transaction-amount-field deposit-field"><span class="currency-prefix">$</span><%= form.text_field :deposit, value: (transaction.deposit.to_d.zero? ? "" : number_to_currency(transaction.deposit, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "deposit" }, aria: { label: "Deposit" } %></div>
   <div class="transaction-balance"><%= number_to_currency(transaction.balance) %></div>
   <div><%= form.select :account_id, options_from_collection_for_select(@accounts, :id, ->(account) { "#{account.number} — #{account.name}" }, transaction.account_id), { include_blank: "Choose account" }, aria: { label: "Account" } %></div>
   <div class="row-action"><%= form.submit transaction.persisted? ? "Save" : "Add", class: "text-link" %></div>
-  <div class="transaction-memo"><%= form.label :memo, "Memo" %><%= form.text_field :memo, aria: { label: "Memo" } %></div>
+  <div class="transaction-memo"><%= form.label :memo, "Memo" %><%= form.text_field :memo, aria: { label: "Memo" }, placeholder: "Optional" %></div>
 <% end %>
 </div>

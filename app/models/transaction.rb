@@ -10,6 +10,14 @@ class Transaction < ApplicationRecord
 
   scope :ordered, -> { order(:date, :id) }
 
+  def payment=(value)
+    super(normalize_amount(value))
+  end
+
+  def deposit=(value)
+    super(normalize_amount(value))
+  end
+
   def self.recalculate_balances!(book)
     running_balance = 0
 
@@ -30,5 +38,13 @@ class Transaction < ApplicationRecord
       return if entity.blank? || entity.vendor? || entity.customer?
 
       errors.add(:entity, "must be a vendor or customer")
+    end
+
+    def normalize_amount(value)
+      return 0 if value.blank?
+
+      BigDecimal(value.to_s.delete("$,"))
+    rescue ArgumentError
+      value
     end
 end
