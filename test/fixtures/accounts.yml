@@ -1,7 +1,7 @@
 rental_income:
   id: "20000000-0000-4000-8000-000000000001"
   book_id: "10000000-0000-4000-8000-000000000001"
-  account_type: 1
+  account_type: income
   name: Rental Income
   number: "3000"
   active: true
@@ -10,7 +10,7 @@ base_rent:
   id: "20000000-0000-4000-8000-000000000002"
   book_id: "10000000-0000-4000-8000-000000000001"
   parent_id: "20000000-0000-4000-8000-000000000001"
-  account_type: 1
+  account_type: income
   name: Base Rent
   number: "3010"
   active: true
@@ -18,7 +18,7 @@ base_rent:
 repairs:
   id: "20000000-0000-4000-8000-000000000003"
   book_id: "10000000-0000-4000-8000-000000000001"
-  account_type: 2
+  account_type: expense
   name: Repairs
   number: "4000"
   active: true

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_16_214500) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_17_000000) do
   create_table "accounts", id: { type: :string, limit: 36 }, force: :cascade do |t|
-    t.integer "account_type", null: false
+    t.string "account_type", null: false
     t.boolean "active", default: true, null: false
     t.string "book_id", limit: 36, null: false
     t.datetime "created_at", null: false

@@ -14,10 +14,10 @@ class Account < ApplicationRecord
     dependent: :restrict_with_error
 
   enum :account_type, {
-    bank: 0,
-    income: 1,
-    expense: 2,
-    credit_card: 3
+    bank: "bank",
+    income: "income",
+    expense: "expense",
+    credit_card: "credit_card"
   }
 
   validates :name, :number, :account_type, presence: true
@@ -61,7 +61,7 @@ class Account < ApplicationRecord
     end
 
     def subaccounts_have_same_type
-      return unless will_save_change_to_account_type? && subaccounts.where.not(account_type: self.class.account_types[account_type]).exists?
+      return unless will_save_change_to_account_type? && subaccounts.where.not(account_type: account_type).exists?
 
       errors.add(:account_type, "must match existing subaccounts")
     end
