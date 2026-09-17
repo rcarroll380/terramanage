@@ -6,6 +6,7 @@
     <h1>Customers</h1>
     <p class="lede">Keep the people and businesses connected to your properties in one place.</p>
   </div>
+  <%= link_to "New customer", new_customer_path, class: "button button-primary" %>
 </section>
 
 <section class="panel">
@@ -30,6 +31,7 @@
       <div class="empty-icon" aria-hidden="true">◎</div>
       <h2>No customers yet</h2>
       <p>Customers will appear here once they are added to terramanage.</p>
+      <%= link_to "Add the first customer", new_customer_path, class: "button button-primary" %>
     </div>
   <% end %>
 </section>

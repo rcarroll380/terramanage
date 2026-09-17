@@ -17,4 +17,12 @@ class AccountsTest < ApplicationSystemTestCase
     assert_text "Active"
     assert_no_text "Acme Plumbing"
   end
+
+  test "opening the new customer form" do
+    visit customers_path
+    click_link "New customer"
+
+    assert_selector "h1", text: "New customer"
+    assert_field "Customer name"
+  end
 end
