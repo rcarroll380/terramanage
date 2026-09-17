@@ -1,0 +1,35 @@
+<% content_for :title, "Customers · terramanage" %>
+
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">People and businesses</p>
+    <h1>Customers</h1>
+    <p class="lede">Keep the people and businesses connected to your properties in one place.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <% if @customers.any? %>
+    <div class="customer-table-header" aria-hidden="true">
+      <span>Customer</span>
+      <span>Location</span>
+      <span>Status</span>
+    </div>
+
+    <div class="customer-list">
+      <% @customers.each do |customer| %>
+        <div id="<%= dom_id customer %>" class="customer-row <%= "is-inactive" unless customer.active? %>">
+          <div class="customer-name"><%= customer.name %></div>
+          <div class="customer-location"><%= [customer.city, customer.state].compact_blank.join(", ").presence || "No address" %></div>
+          <div><span class="status-dot <%= "inactive" unless customer.active? %>"></span><%= customer.active? ? "Active" : "Inactive" %></div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <div class="empty-icon" aria-hidden="true">◎</div>
+      <h2>No customers yet</h2>
+      <p>Customers will appear here once they are added to terramanage.</p>
+    </div>
+  <% end %>
+</section>

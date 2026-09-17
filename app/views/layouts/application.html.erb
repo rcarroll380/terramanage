@@ -35,6 +35,10 @@
           <span class="book-pill-label">Book</span>
           <strong><%= @current_book&.name || "My rentals" %></strong>
         </div>
+
+        <nav aria-label="Main navigation">
+          <%= link_to "Customers", customers_path, class: "text-link" %>
+        </nav>
       </div>
     </header>
 
