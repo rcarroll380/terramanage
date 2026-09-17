@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_15_225304) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_16_201800) do
   create_table "accounts", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.integer "account_type", null: false
     t.boolean "active", default: true, null: false
@@ -28,6 +28,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_225304) do
   create_table "books", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entities", id: { type: :string, limit: 36 }, force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.string "entity_type", null: false
+    t.string "name", null: false
+    t.string "postal_code", limit: 10
+    t.string "state", limit: 2
     t.datetime "updated_at", null: false
   end
 

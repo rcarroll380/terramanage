@@ -1,0 +1,14 @@
+<% content_for :title, "New customer · terramanage" %>
+
+<section class="narrow-page">
+  <%= link_to "← Customers", customers_path, class: "back-link" %>
+  <div class="form-heading">
+    <p class="eyebrow">People and businesses</p>
+    <h1>New customer</h1>
+    <p>Add a customer and their optional US mailing address.</p>
+  </div>
+
+  <div class="panel form-panel">
+    <%= render "form", customer: @customer, entity_label: "Customer", collection_path: customers_path %>
+  </div>
+</section>

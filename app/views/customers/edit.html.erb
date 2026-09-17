@@ -1,0 +1,14 @@
+<% content_for :title, "Edit #{@customer.name} · terramanage" %>
+
+<section class="narrow-page">
+  <%= link_to "← Customers", customers_path, class: "back-link" %>
+  <div class="form-heading">
+    <p class="eyebrow">People and businesses</p>
+    <h1>Edit customer</h1>
+    <p>Update this customer's details, address, or active status.</p>
+  </div>
+
+  <div class="panel form-panel">
+    <%= render "form", customer: @customer, entity_label: "Customer", collection_path: customers_path, resource_path: customer_path(@customer) %>
+  </div>
+</section>

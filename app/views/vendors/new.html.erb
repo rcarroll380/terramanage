@@ -1,0 +1,12 @@
+<% content_for :title, "New vendor · terramanage" %>
+<section class="narrow-page">
+  <%= link_to "← Vendors", vendors_path, class: "back-link" %>
+  <div class="form-heading">
+    <p class="eyebrow">People and businesses</p>
+    <h1>New vendor</h1>
+    <p>Add a vendor and their optional US mailing address.</p>
+  </div>
+  <div class="panel form-panel">
+    <%= render "customers/form", customer: @vendor, entity_label: "Vendor", collection_path: vendors_path %>
+  </div>
+</section>

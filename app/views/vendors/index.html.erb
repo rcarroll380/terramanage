@@ -1,0 +1,38 @@
+<% content_for :title, "Vendors · terramanage" %>
+
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">People and businesses</p>
+    <h1>Vendors</h1>
+    <p class="lede">Keep the people and businesses you pay in one place.</p>
+  </div>
+  <%= link_to "New vendor", new_vendor_path, class: "button button-primary" %>
+</section>
+
+<section class="panel">
+  <% if @vendors.any? %>
+    <div class="customer-table-header" aria-hidden="true">
+      <span>Vendor</span>
+      <span>Location</span>
+      <span>Status</span>
+      <span></span>
+    </div>
+    <div class="customer-list">
+      <% @vendors.each do |vendor| %>
+        <div id="<%= dom_id vendor %>" class="customer-row <%= "is-inactive" unless vendor.active? %>">
+          <div class="customer-name"><%= link_to vendor.name, edit_vendor_path(vendor) %></div>
+          <div class="customer-location"><%= [vendor.city, vendor.state].compact_blank.join(", ").presence || "No address" %></div>
+          <div><span class="status-dot <%= "inactive" unless vendor.active? %>"></span><%= vendor.active? ? "Active" : "Inactive" %></div>
+          <div class="row-action"><%= link_to "Edit", edit_vendor_path(vendor), class: "text-link" %></div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <div class="empty-icon" aria-hidden="true">◎</div>
+      <h2>No vendors yet</h2>
+      <p>Vendors will appear here once they are added to terramanage.</p>
+      <%= link_to "Add the first vendor", new_vendor_path, class: "button button-primary" %>
+    </div>
+  <% end %>
+</section>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :accounts
+  resources :customers, only: %i[ index new create edit update ]
+  resources :vendors, only: %i[ index new create edit update ]
   root "accounts#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,0 +1,19 @@
+landlord:
+  id: "30000000-0000-4000-8000-000000000001"
+  entity_type: customer
+  name: Ryan Carroll
+  address_line1: 123 Main Street
+  city: Lafayette
+  state: IN
+  postal_code: "47901"
+
+plumber:
+  id: "30000000-0000-4000-8000-000000000002"
+  entity_type: vendor
+  name: Acme Plumbing
+
+former_customer:
+  id: "30000000-0000-4000-8000-000000000003"
+  entity_type: customer
+  name: Former Customer
+  active: false

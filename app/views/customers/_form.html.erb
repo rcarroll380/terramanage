@@ -1,0 +1,65 @@
+<% entity_label = local_assigns.fetch(:entity_label, "Customer") %>
+<% collection_path = local_assigns.fetch(:collection_path, customers_path) %>
+<% resource_path = local_assigns[:resource_path] %>
+<%= form_with(
+  model: customer,
+  url: customer.persisted? ? resource_path : collection_path,
+  method: customer.persisted? ? :patch : :post,
+  class: "customer-form"
+) do |form| %>
+  <% if customer.errors.any? %>
+    <div class="validation-errors">
+      <strong><%= pluralize(customer.errors.count, "problem") %> prevented this <%= entity_label.downcase %> from being saved:</strong>
+      <ul>
+        <% customer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field-grid">
+    <div class="field field-wide">
+      <%= form.label :name, "#{entity_label} name" %>
+      <%= form.text_field :name, placeholder: "Jane Smith", autofocus: true %>
+    </div>
+
+    <div class="field field-wide">
+      <%= form.label :address_line1, "Address" %>
+      <%= form.text_field :address_line1, placeholder: "123 Main Street" %>
+    </div>
+
+    <div class="field field-wide">
+      <%= form.label :address_line2, "Address line 2" %>
+      <%= form.text_field :address_line2, placeholder: "Apartment 4B" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :city %>
+      <%= form.text_field :city, placeholder: "Lafayette" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :state %>
+      <%= form.text_field :state, placeholder: "IN", maxlength: 2 %>
+    </div>
+
+    <div class="field">
+      <%= form.label :postal_code, "ZIP code" %>
+      <%= form.text_field :postal_code, placeholder: "47901", inputmode: "numeric" %>
+    </div>
+
+    <label class="check-field field-wide">
+      <%= form.checkbox :active %>
+      <span>
+        <strong>Active <%= entity_label.downcase %></strong>
+        <small>Inactive <%= entity_label.downcase %>s remain available for historical records.</small>
+      </span>
+    </label>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to "Cancel", customers_path, class: "button button-secondary" %>
+    <%= form.submit customer.persisted? ? "Save #{entity_label.downcase}" : "Create #{entity_label.downcase}", class: "button button-primary" %>
+  </div>
+<% end %>
