@@ -19,6 +19,8 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type='hidden'][name='transaction[account_id]']", count: 3
     assert_select "input[type='hidden'][name='transaction[account_id]'][value='#{accounts(:rental_income).id}']", count: 3
     assert_select "input[type='submit']", count: 0
+    assert_select "#transaction_40000000-0000-4000-8000-000000000002 select[name='transaction[entity_id]'] option", text: "Former Customer"
+    assert_select "#new_transaction select[name='transaction[entity_id]'] option", text: "Former Customer", count: 0
   end
 
   test "creates a transaction for the current book" do
