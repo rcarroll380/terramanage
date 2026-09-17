@@ -83,6 +83,28 @@ a { color: inherit; }
 
 .book-pill-label { color: var(--muted); }
 
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.primary-nav a {
+  border-radius: 8px;
+  padding: 8px 11px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.primary-nav a:hover,
+.primary-nav a.is-active {
+  background: var(--green-soft);
+  color: var(--green-dark);
+}
+
 .page-shell {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
@@ -400,6 +422,9 @@ a { color: inherit; }
 
 @media (max-width: 760px) {
   .header-inner, .page-shell { width: min(100% - 24px, 1120px); }
+  .header-inner { flex-wrap: wrap; gap: 10px 14px; padding: 12px 0; }
+  .primary-nav { order: 3; width: 100%; margin-left: 0; }
+  .primary-nav a { flex: 1; text-align: center; }
   .page-shell { padding-top: 36px; }
   .page-heading { align-items: stretch; flex-direction: column; gap: 20px; }
   .page-heading .button { align-self: flex-start; }

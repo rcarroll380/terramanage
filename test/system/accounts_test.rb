@@ -4,6 +4,12 @@ class AccountsTest < ApplicationSystemTestCase
   test "viewing the chart of accounts" do
     visit accounts_path
 
+    within "nav[aria-label='Primary navigation']" do
+      assert_link "Accounts"
+      assert_link "Customers"
+      assert_link "Vendors"
+      assert_selector "a.is-active", text: "Accounts"
+    end
     assert_selector "h1", text: "Chart of accounts"
     assert_link "Rental Income"
     assert_link "Base Rent"
@@ -12,6 +18,9 @@ class AccountsTest < ApplicationSystemTestCase
   test "viewing the customer list" do
     visit customers_path
 
+    within "nav[aria-label='Primary navigation']" do
+      assert_selector "a.is-active", text: "Customers"
+    end
     assert_selector "h1", text: "Customers"
     assert_text "Ryan Carroll"
     assert_text "Active"

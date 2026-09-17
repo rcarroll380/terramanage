@@ -31,15 +31,17 @@
           <span>terramanage</span>
         <% end %>
 
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <%= link_to "Accounts", accounts_path, class: ("is-active" if current_page?(accounts_path)) %>
+          <%= link_to "Customers", customers_path, class: ("is-active" if current_page?(customers_path)) %>
+          <%= link_to "Vendors", vendors_path, class: ("is-active" if current_page?(vendors_path)) %>
+        </nav>
+
         <div class="book-pill">
           <span class="book-pill-label">Book</span>
           <strong><%= @current_book&.name || "My rentals" %></strong>
         </div>
 
-        <nav aria-label="Main navigation">
-          <%= link_to "Customers", customers_path, class: "text-link" %>
-          <%= link_to "Vendors", vendors_path, class: "text-link" %>
-        </nav>
       </div>
     </header>
 
