@@ -223,7 +223,7 @@ a { color: inherit; }
 .transaction-table-header,
 .transaction-row {
   display: grid;
-  grid-template-columns: 132px 100px 220px 120px 120px 130px 180px 58px;
+  grid-template-columns: 132px 100px 300px 120px 120px 130px 180px;
   align-items: center;
   min-width: 1080px;
   gap: 8px;
@@ -267,7 +267,7 @@ a { color: inherit; }
 .transaction-new { background: #f7faf7; }
 .transaction-balance { padding: 6px 7px; font-variant-numeric: tabular-nums; text-align: right; }
 .transaction-category { grid-column: 3; grid-row: 2; }
-.transaction-memo { display: flex; align-items: center; grid-column: 4 / 8; grid-row: 2; gap: 8px; padding: 0 7px 8px; color: #98a39d; }
+.transaction-memo { display: flex; align-items: center; grid-column: 4 / -1; grid-row: 2; gap: 8px; padding: 0 7px 8px; color: #98a39d; }
 .transaction-memo input { flex: 1; }
 .transaction-memo input { color: var(--muted); font-size: 13px; }
 .transaction-amount-field { display: flex; align-items: center; }

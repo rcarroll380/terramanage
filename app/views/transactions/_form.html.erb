@@ -14,7 +14,6 @@
   <div class="transaction-balance"><%= number_to_currency(transaction.balance) %></div>
   <%= form.hidden_field :account_id %>
   <div class="transaction-category"><%= form.select :category_account_id, options_from_collection_for_select(@accounts, :id, ->(account) { "#{account.number} — #{account.name}" }, transaction.category_account_id), { include_blank: "Choose account" }, required: true, aria: { label: "Account" } %></div>
-  <div class="row-action"><%= form.submit transaction.persisted? ? "Save" : "Add", class: "text-link" %></div>
-  <div class="transaction-memo"><%= form.text_field :memo, aria: { label: "Memo" }, placeholder: "Memo" %></div>
+  <div class="transaction-memo" data-controller="memo-autosave"><%= form.text_field :memo, aria: { label: "Memo" }, placeholder: "Memo", data: { action: "blur->memo-autosave#submit" } %></div>
 <% end %>
 </div>
