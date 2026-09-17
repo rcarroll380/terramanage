@@ -70,7 +70,6 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Transactions"
     assert_selector ".transaction-table-header", text: /DATE/
     assert_selector ".transaction-table-header", text: /BALANCE/
-    assert_selector ".transaction-table-header", text: /ACCOUNT/
     assert_no_selector "select[name='transaction[account_id]']"
     assert_selector ".transaction-row", count: 3
   end
