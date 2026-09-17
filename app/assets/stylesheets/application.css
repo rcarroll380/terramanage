@@ -218,6 +218,56 @@ a { color: inherit; }
 .customer-name a:hover { color: var(--green); }
 .customer-location { color: var(--muted); }
 
+.transaction-panel { overflow: visible; }
+.transaction-scroll { overflow-x: auto; }
+.transaction-table-header,
+.transaction-row {
+  display: grid;
+  grid-template-columns: 132px 100px 220px 120px 120px 130px 220px minmax(180px, 1fr) 90px 58px;
+  align-items: center;
+  min-width: 1390px;
+  gap: 8px;
+  padding: 0 16px;
+}
+.transaction-table-header {
+  min-height: 48px;
+  border-bottom: 1px solid var(--line);
+  background: #fafbf9;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.transaction-row {
+  min-height: 58px;
+  border-bottom: 1px solid #edf0ed;
+}
+.transaction-row:last-child { border-bottom: 0; }
+.transaction-row:hover { background: #fbfcfa; }
+.transaction-row input:not([type="checkbox"]),
+.transaction-row select {
+  width: 100%;
+  min-height: 36px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  padding: 6px 7px;
+  color: inherit;
+  font: inherit;
+}
+.transaction-row input:not([type="checkbox"]):focus,
+.transaction-row select:focus {
+  border-color: #b7cec0;
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(29, 107, 74, 0.1);
+}
+.transaction-new { background: #f7faf7; }
+.transaction-balance { padding: 6px 7px; font-variant-numeric: tabular-nums; text-align: right; }
+.transaction-check { text-align: center; }
+.transaction-check input { width: 17px; height: 17px; accent-color: var(--green); }
+
 .account-table-header {
   min-height: 48px;
   padding: 0 24px;

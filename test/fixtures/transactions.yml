@@ -1,0 +1,25 @@
+rent_deposit:
+  id: "40000000-0000-4000-8000-000000000001"
+  book_id: "10000000-0000-4000-8000-000000000001"
+  date: 2026-01-01
+  number: "1001"
+  entity_id: "30000000-0000-4000-8000-000000000001"
+  payment: 0
+  deposit: 1500
+  balance: 1500
+  account_id: "20000000-0000-4000-8000-000000000001"
+  memo: January rent
+  reconciled: false
+
+plumbing_payment:
+  id: "40000000-0000-4000-8000-000000000002"
+  book_id: "10000000-0000-4000-8000-000000000001"
+  date: 2026-01-02
+  number: "1002"
+  entity_id: "30000000-0000-4000-8000-000000000002"
+  payment: 250
+  deposit: 0
+  balance: 1250
+  account_id: "20000000-0000-4000-8000-000000000001"
+  memo: Repair work
+  reconciled: true

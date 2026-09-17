@@ -3,6 +3,7 @@ class Entity < ApplicationRecord
 
   scope :customers, -> { where(entity_type: :customer) }
   scope :vendors, -> { where(entity_type: :vendor) }
+  has_many :transactions, dependent: :restrict_with_error
 
   validates :name, :entity_type, presence: true
 end

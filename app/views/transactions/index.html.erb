@@ -1,0 +1,33 @@
+<% content_for :title, "Transactions · terramanage" %>
+
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">Bookkeeping activity</p>
+    <h1>Transactions</h1>
+    <p class="lede">Enter payments and deposits in a register-style view. Changes save from the row you edit.</p>
+  </div>
+</section>
+
+<section class="panel transaction-panel">
+  <div class="transaction-scroll">
+    <div class="transaction-table-header" aria-hidden="true">
+      <span>Date</span>
+      <span>Number</span>
+      <span>Entity</span>
+      <span>Payment</span>
+      <span>Deposit</span>
+      <span>Balance</span>
+      <span>Account</span>
+      <span>Memo</span>
+      <span>Reconciled</span>
+      <span></span>
+    </div>
+
+    <div class="transaction-list">
+      <% @transactions.each do |transaction| %>
+        <%= render "transaction", transaction: transaction %>
+      <% end %>
+      <%= render "form", transaction: @transaction, new_transaction: true %>
+    </div>
+  </div>
+</section>
