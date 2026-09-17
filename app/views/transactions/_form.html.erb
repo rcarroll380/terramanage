@@ -8,7 +8,7 @@
 ) do |form| %>
   <div><%= form.date_field :date, aria: { label: "Date" } %></div>
   <div><%= form.text_field :number, aria: { label: "Number" }, placeholder: "Check #" %></div>
-  <div><%= form.select :entity_id, options_for_select(@entities.map { |entity| [ "#{entity.name} (#{entity.entity_type})", entity.id, { data: { display_name: entity.name } } ] }, transaction.entity_id), { prompt: "Choose payee" }, required: true, aria: { label: "Payee" }, data: { controller: "entity-select", entity_select_target: "select", action: "focus->entity-select#showTypes blur->entity-select#hideSelectedType change->entity-select#hideSelectedType" } %></div>
+  <div><%= form.select :entity_id, grouped_options_for_select(@entities.group_by { |entity| entity.entity_type.humanize }.transform_values { |entities| entities.map { |entity| [ entity.name, entity.id ] } }, transaction.entity_id), { prompt: "Choose payee" }, required: true, aria: { label: "Payee" } %></div>
   <div class="transaction-amount-field payment-field"><%= form.text_field :payment, value: (transaction.payment.to_d.zero? ? "" : number_to_currency(transaction.payment, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "payment" }, aria: { label: "Payment" } %></div>
   <div class="transaction-amount-field deposit-field"><%= form.text_field :deposit, value: (transaction.deposit.to_d.zero? ? "" : number_to_currency(transaction.deposit, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "deposit" }, aria: { label: "Deposit" } %></div>
   <div class="transaction-balance"><%= number_to_currency(transaction.balance) %></div>

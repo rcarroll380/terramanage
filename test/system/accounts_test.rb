@@ -71,6 +71,8 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector ".transaction-table-header", text: /DATE/
     assert_selector ".transaction-table-header", text: /BALANCE/
     assert_no_selector "select[name='transaction[account_id]']"
+    assert_selector "select[name='transaction[entity_id]'] option:checked", text: "Ryan Carroll"
+    assert_no_selector "select[name='transaction[entity_id]'] option:checked", text: /\(customer\)|\(vendor\)/
     assert_selector ".transaction-row", count: 3
   end
 end
