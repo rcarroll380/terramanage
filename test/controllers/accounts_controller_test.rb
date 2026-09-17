@@ -100,6 +100,6 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_equal books(:my_rentals), Account.order(:created_at).last.book
+    assert_equal books(:my_rentals), Account.find_by!(name: "Checking").book
   end
 end

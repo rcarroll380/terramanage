@@ -15,14 +15,16 @@
       <span>Customer</span>
       <span>Location</span>
       <span>Status</span>
+      <span></span>
     </div>
 
     <div class="customer-list">
       <% @customers.each do |customer| %>
         <div id="<%= dom_id customer %>" class="customer-row <%= "is-inactive" unless customer.active? %>">
-          <div class="customer-name"><%= customer.name %></div>
+          <div class="customer-name"><%= link_to customer.name, edit_customer_path(customer) %></div>
           <div class="customer-location"><%= [customer.city, customer.state].compact_blank.join(", ").presence || "No address" %></div>
           <div><span class="status-dot <%= "inactive" unless customer.active? %>"></span><%= customer.active? ? "Active" : "Inactive" %></div>
+          <div class="row-action"><%= link_to "Edit", edit_customer_path(customer), class: "text-link" %></div>
         </div>
       <% end %>
     </div>

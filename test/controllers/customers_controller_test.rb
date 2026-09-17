@@ -38,4 +38,20 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "456 Oak Avenue", customer.address_line1
     assert_redirected_to customers_url
   end
+
+  test "shows the edit form" do
+    get edit_customer_url(entities(:landlord))
+
+    assert_response :success
+    assert_select "h1", "Edit customer"
+    assert_select "input[name='entity[name]'][value='Ryan Carroll']"
+  end
+
+  test "updates a customer" do
+    patch customer_url(entities(:landlord)), params: { entity: { name: "Ryan C. Carroll", active: false } }
+
+    assert_equal "Ryan C. Carroll", entities(:landlord).reload.name
+    assert_not entities(:landlord).active?
+    assert_redirected_to customers_url
+  end
 end

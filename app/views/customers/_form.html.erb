@@ -1,4 +1,9 @@
-<%= form_with(model: customer, url: customers_path, class: "customer-form") do |form| %>
+<%= form_with(
+  model: customer,
+  url: customer.persisted? ? customer_path(customer) : customers_path,
+  method: customer.persisted? ? :patch : :post,
+  class: "customer-form"
+) do |form| %>
   <% if customer.errors.any? %>
     <div class="validation-errors">
       <strong><%= pluralize(customer.errors.count, "problem") %> prevented this customer from being saved:</strong>
@@ -52,6 +57,6 @@
 
   <div class="form-actions">
     <%= link_to "Cancel", customers_path, class: "button button-secondary" %>
-    <%= form.submit "Create customer", class: "button button-primary" %>
+      <%= form.submit customer.persisted? ? "Save customer" : "Create customer", class: "button button-primary" %>
   </div>
 <% end %>

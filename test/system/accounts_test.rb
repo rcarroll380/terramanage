@@ -25,4 +25,12 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "New customer"
     assert_field "Customer name"
   end
+
+  test "opening a customer's edit form" do
+    visit customers_path
+    click_link "Ryan Carroll"
+
+    assert_selector "h1", text: "Edit customer"
+    assert_field "Customer name", with: "Ryan Carroll"
+  end
 end
