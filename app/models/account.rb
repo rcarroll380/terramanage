@@ -17,7 +17,14 @@ class Account < ApplicationRecord
     bank: "bank",
     income: "income",
     expense: "expense",
-    credit_card: "credit_card"
+    credit_card: "credit_card",
+    equity: "equity",
+    fixed_asset: "fixed_asset",
+    long_term_liability: "long_term_liability",
+    other_current_asset: "other_current_asset",
+    other_current_liability: "other_current_liability",
+    other_expense: "other_expense",
+    other_income: "other_income"
   }
 
   validates :name, :number, :account_type, presence: true

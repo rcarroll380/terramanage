@@ -52,6 +52,20 @@ Run the full local CI suite, including style and security checks:
 bin/ci
 ```
 
+## Data imports
+
+Import a CSV export by providing its path and import type. The supported types
+are `account`, `vendor`, `customer`, and `transactions`:
+
+```sh
+bin/rails data:import FILE="/path/to/export.csv" TYPE=account
+bin/rails data:import FILE="/path/to/export.csv" TYPE=vendor BOOK="My rentals"
+```
+
+Account imports accept the QuickBooks Account Listing layout. Entity and
+transaction imports expect a header row with names such as `Name`, `Date`,
+`Payee`, `Account`, `Category Account`, `Payment`, and `Deposit`.
+
 ## Project plans
 
 - [Product plan](./plan/PRODUCT_PLAN.md)
