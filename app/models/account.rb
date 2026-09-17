@@ -1,5 +1,10 @@
 class Account < ApplicationRecord
   belongs_to :book
+  has_many :transactions, dependent: :restrict_with_error
+  has_many :category_transactions,
+    class_name: "Transaction",
+    foreign_key: :category_account_id,
+    dependent: :restrict_with_error
   belongs_to :parent, class_name: "Account", optional: true, inverse_of: :subaccounts
   has_many :subaccounts,
     -> { order(:number, :name) },

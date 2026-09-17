@@ -63,4 +63,16 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Vendors"
     assert_text "Acme Electric"
   end
+
+  test "viewing the transactions spreadsheet" do
+    visit transactions_path
+
+    assert_selector "h1", text: "Transactions"
+    assert_selector ".transaction-table-header", text: /DATE/
+    assert_selector ".transaction-table-header", text: /BALANCE/
+    assert_no_selector "select[name='transaction[account_id]']"
+    assert_selector "select[name='transaction[entity_id]'] option:checked", text: "Ryan Carroll"
+    assert_no_selector "select[name='transaction[entity_id]'] option:checked", text: /\(customer\)|\(vendor\)/
+    assert_selector ".transaction-row", count: 3
+  end
 end

@@ -1,0 +1,19 @@
+<div id="<%= dom_id transaction %>" class="transaction-container">
+<%= form_with(
+  model: transaction,
+  url: transaction.persisted? ? transaction_path(transaction) : transactions_path,
+  method: transaction.persisted? ? :patch : :post,
+  class: "transaction-row #{"transaction-new" if local_assigns[:new_transaction]}",
+  data: { controller: "transaction-amounts", action: "input->transaction-amounts#toggleFields" }
+) do |form| %>
+  <div><%= form.date_field :date, aria: { label: "Date" } %></div>
+  <div><%= form.text_field :number, aria: { label: "Number" }, placeholder: "Check #" %></div>
+  <div><%= form.select :entity_id, grouped_options_for_select(transaction_entities_for(transaction).group_by { |entity| entity.entity_type.humanize }.transform_values { |entities| entities.map { |entity| [ entity.name, entity.id ] } }, transaction.entity_id), { prompt: "Choose payee" }, required: true, aria: { label: "Payee" } %></div>
+  <div class="transaction-amount-field payment-field"><%= form.text_field :payment, value: (transaction.payment.to_d.zero? ? "" : number_to_currency(transaction.payment, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "payment" }, aria: { label: "Payment" } %></div>
+  <div class="transaction-amount-field deposit-field"><%= form.text_field :deposit, value: (transaction.deposit.to_d.zero? ? "" : number_to_currency(transaction.deposit, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "deposit" }, aria: { label: "Deposit" } %></div>
+  <div class="transaction-balance"><%= number_to_currency(transaction.balance) %></div>
+  <%= form.hidden_field :account_id %>
+  <div class="transaction-category"><%= form.select :category_account_id, options_from_collection_for_select(@accounts, :id, ->(account) { "#{account.number} — #{account.name}" }, transaction.category_account_id), { include_blank: "Choose account" }, required: true, aria: { label: "Account" } %></div>
+  <div class="transaction-memo" data-controller="memo-autosave"><%= form.text_field :memo, aria: { label: "Memo" }, placeholder: "Memo", data: { action: "blur->memo-autosave#submit" } %></div>
+<% end %>
+</div>

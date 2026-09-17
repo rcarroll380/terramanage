@@ -1,0 +1,30 @@
+<% page_title = @account ? "#{@account.number} — #{@account.name}" : "Transactions" %>
+<% content_for :title, "#{page_title} · terramanage" %>
+
+<section class="page-heading">
+  <div>
+    <h1><%= page_title %></h1>
+  </div>
+</section>
+
+<section class="panel transaction-panel">
+  <div class="transaction-scroll">
+    <div class="transaction-table-header" aria-hidden="true">
+      <span>Date</span>
+      <span>Number</span>
+      <span>Payee</span>
+      <span>Payment</span>
+      <span>Deposit</span>
+      <span>Balance</span>
+      <span></span>
+    </div>
+
+    <div class="transaction-list">
+      <% @transactions.each do |transaction| %>
+        <%= render "transaction", transaction: transaction %>
+      <% end %>
+      <%= render "form", transaction: @transaction, new_transaction: true %>
+    </div>
+  </div>
+  <div class="transaction-ending-balance">Ending Balance: <strong><%= number_to_currency(@ending_balance) %></strong></div>
+</section>

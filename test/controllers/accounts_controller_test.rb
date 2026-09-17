@@ -10,7 +10,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "h1", "Chart of accounts"
-    assert_select "a", "Rental Income"
+    assert_select "a[href='#{transactions_path(account_id: accounts(:rental_income).id)}']", text: "Rental Income"
     assert_select "a", "Base Rent"
   end
 

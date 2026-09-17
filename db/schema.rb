@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_16_201800) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_16_214500) do
   create_table "accounts", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.integer "account_type", null: false
     t.boolean "active", default: true, null: false
@@ -44,6 +44,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_16_201800) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transactions", id: { type: :string, limit: 36 }, force: :cascade do |t|
+    t.string "account_id", limit: 36, null: false
+    t.decimal "balance", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "book_id", limit: 36, null: false
+    t.string "category_account_id", limit: 36, null: false
+    t.datetime "created_at", null: false
+    t.date "date", null: false
+    t.decimal "deposit", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "entity_id", limit: 36, null: false
+    t.text "memo"
+    t.string "number"
+    t.decimal "payment", precision: 12, scale: 2, default: "0.0", null: false
+    t.boolean "reconciled", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["book_id", "date", "id"], name: "index_transactions_on_book_id_and_date_and_id"
+    t.index ["book_id"], name: "index_transactions_on_book_id"
+    t.index ["category_account_id"], name: "index_transactions_on_category_account_id"
+    t.index ["entity_id"], name: "index_transactions_on_entity_id"
+  end
+
   add_foreign_key "accounts", "accounts", column: "parent_id"
   add_foreign_key "accounts", "books"
+  add_foreign_key "transactions", "accounts"
+  add_foreign_key "transactions", "accounts", column: "category_account_id"
+  add_foreign_key "transactions", "books"
+  add_foreign_key "transactions", "entities"
 end
