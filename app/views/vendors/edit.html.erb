@@ -1,0 +1,12 @@
+<% content_for :title, "Edit #{@vendor.name} · terramanage" %>
+<section class="narrow-page">
+  <%= link_to "← Vendors", vendors_path, class: "back-link" %>
+  <div class="form-heading">
+    <p class="eyebrow">People and businesses</p>
+    <h1>Edit vendor</h1>
+    <p>Update this vendor's details, address, or active status.</p>
+  </div>
+  <div class="panel form-panel">
+    <%= render "customers/form", customer: @vendor, entity_label: "Vendor" %>
+  </div>
+</section>

@@ -33,4 +33,15 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Edit customer"
     assert_field "Customer name", with: "Ryan Carroll"
   end
+
+  test "viewing and editing the vendor list" do
+    visit vendors_path
+    assert_selector "h1", text: "Vendors"
+    assert_text "Acme Plumbing"
+    assert_no_text "Ryan Carroll"
+
+    click_link "Acme Plumbing"
+    assert_selector "h1", text: "Edit vendor"
+    assert_field "Vendor name", with: "Acme Plumbing"
+  end
 end

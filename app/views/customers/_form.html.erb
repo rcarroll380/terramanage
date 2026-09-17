@@ -1,3 +1,4 @@
+<% entity_label = local_assigns.fetch(:entity_label, "Customer") %>
 <%= form_with(
   model: customer,
   url: customer.persisted? ? customer_path(customer) : customers_path,
@@ -6,7 +7,7 @@
 ) do |form| %>
   <% if customer.errors.any? %>
     <div class="validation-errors">
-      <strong><%= pluralize(customer.errors.count, "problem") %> prevented this customer from being saved:</strong>
+      <strong><%= pluralize(customer.errors.count, "problem") %> prevented this <%= entity_label.downcase %> from being saved:</strong>
       <ul>
         <% customer.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -17,7 +18,7 @@
 
   <div class="field-grid">
     <div class="field field-wide">
-      <%= form.label :name, "Customer name" %>
+      <%= form.label :name, "#{entity_label} name" %>
       <%= form.text_field :name, placeholder: "Jane Smith", autofocus: true %>
     </div>
 
@@ -49,14 +50,14 @@
     <label class="check-field field-wide">
       <%= form.checkbox :active %>
       <span>
-        <strong>Active customer</strong>
-        <small>Inactive customers remain available for historical records.</small>
+        <strong>Active <%= entity_label.downcase %></strong>
+        <small>Inactive <%= entity_label.downcase %>s remain available for historical records.</small>
       </span>
     </label>
   </div>
 
   <div class="form-actions">
     <%= link_to "Cancel", customers_path, class: "button button-secondary" %>
-      <%= form.submit customer.persisted? ? "Save customer" : "Create customer", class: "button button-primary" %>
+    <%= form.submit customer.persisted? ? "Save #{entity_label.downcase}" : "Create #{entity_label.downcase}", class: "button button-primary" %>
   </div>
 <% end %>
