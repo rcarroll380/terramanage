@@ -23,7 +23,10 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    if @transaction.update(transaction_params)
+    attributes = transaction_params
+    attributes[:account_id] ||= @transaction.account_id
+
+    if @transaction.update(attributes)
       Transaction.recalculate_balances!(@current_book)
       redirect_to transactions_path, notice: "Transaction updated."
     else

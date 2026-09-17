@@ -16,6 +16,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "select[name='transaction[category_account_id]']", count: 3
     assert_select "select[name='transaction[account_id]']", count: 0
     assert_select "input[type='hidden'][name='transaction[account_id]']", count: 3
+    assert_select "input[type='hidden'][name='transaction[account_id]'][value='#{accounts(:rental_income).id}']", count: 3
   end
 
   test "creates a transaction for the current book" do
@@ -51,7 +52,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "updates a transaction inline" do
     patch transaction_url(transactions(:plumbing_payment)), params: {
-      transaction: { payment: "300.00", entity_id: entities(:plumber).id, account_id: accounts(:rental_income).id, category_account_id: accounts(:base_rent).id }
+      transaction: { payment: "300.00", entity_id: entities(:plumber).id, category_account_id: accounts(:base_rent).id }
     }
 
     assert_equal 300.to_d, transactions(:plumbing_payment).reload.payment
