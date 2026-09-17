@@ -12,8 +12,7 @@
   <div><%= form.number_field :deposit, step: 0.01, min: 0, aria: { label: "Deposit" } %></div>
   <div class="transaction-balance"><%= number_to_currency(transaction.balance) %></div>
   <div><%= form.select :account_id, options_from_collection_for_select(@accounts, :id, ->(account) { "#{account.number} — #{account.name}" }, transaction.account_id), { include_blank: "Choose account" }, aria: { label: "Account" } %></div>
-  <div><%= form.text_field :memo, aria: { label: "Memo" } %></div>
-  <div class="transaction-check"><%= form.checkbox :reconciled, aria: { label: "Reconciled" } %></div>
   <div class="row-action"><%= form.submit transaction.persisted? ? "Save" : "Add", class: "text-link" %></div>
+  <div class="transaction-memo"><%= form.label :memo, "Memo" %><%= form.text_field :memo, aria: { label: "Memo" } %></div>
 <% end %>
 </div>
