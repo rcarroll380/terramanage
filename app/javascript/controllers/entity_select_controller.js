@@ -9,18 +9,18 @@ export default class extends Controller {
 
   showTypes() {
     this.selectTarget.options.forEach((option) => {
-      if (option.dataset.displayName) option.text = option.dataset.fullLabel || option.text
+      if (option.dataset.displayName) option.textContent = option.dataset.fullLabel || option.textContent
     })
   }
 
   hideSelectedType() {
     this.selectTarget.options.forEach((option) => {
       if (option.dataset.displayName) {
-        option.dataset.fullLabel ||= option.text
+        option.dataset.fullLabel ||= option.textContent
       }
     })
 
     const selected = this.selectTarget.selectedOptions[0]
-    if (selected?.dataset.displayName) selected.text = selected.dataset.displayName
+    if (selected?.dataset.displayName) selected.textContent = selected.dataset.displayName
   }
 }
