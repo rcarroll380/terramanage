@@ -4,9 +4,9 @@ class TransactionsController < ApplicationController
 
   def index
     @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
-    @transaction = @current_book.transactions.new(date: Date.current)
     @accounts = @current_book.accounts.ordered
     @entities = Entity.order(:name)
+    @transaction = new_transaction
   end
 
   def create
@@ -29,7 +29,7 @@ class TransactionsController < ApplicationController
     else
       load_form_options
       @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
-      @transaction = @current_book.transactions.new(date: Date.current)
+      @transaction = new_transaction
       render :index, status: :unprocessable_content
     end
   end
@@ -46,6 +46,12 @@ class TransactionsController < ApplicationController
     def load_form_options
       @accounts = @current_book.accounts.ordered
       @entities = Entity.order(:name)
+    end
+
+    def new_transaction
+      account_id = params[:account_id] if params[:account_id].present? && @accounts.any? { |account| account.id == params[:account_id] }
+      account_id ||= @accounts.first&.id
+      @current_book.transactions.new(date: Date.current, account_id: account_id)
     end
 
     def transaction_scope

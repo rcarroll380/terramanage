@@ -223,9 +223,9 @@ a { color: inherit; }
 .transaction-table-header,
 .transaction-row {
   display: grid;
-  grid-template-columns: 132px 100px 220px 120px 120px 130px 180px 180px 58px;
+  grid-template-columns: 132px 100px 220px 120px 120px 130px 180px 58px;
   align-items: center;
-  min-width: 1260px;
+  min-width: 1080px;
   gap: 8px;
   padding: 0 16px;
 }

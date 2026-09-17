@@ -14,6 +14,8 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".payment-field input", count: 3
     assert_select ".deposit-field input", count: 3
     assert_select "select[name='transaction[category_account_id]']", count: 3
+    assert_select "select[name='transaction[account_id]']", count: 0
+    assert_select "input[type='hidden'][name='transaction[account_id]']", count: 3
   end
 
   test "creates a transaction for the current book" do

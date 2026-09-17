@@ -5,10 +5,10 @@ class AccountsTest < ApplicationSystemTestCase
     visit accounts_path
 
     within "nav[aria-label='Primary navigation']" do
-      assert_link "Accounts"
+      assert_no_link "Accounts"
       assert_link "Customers"
       assert_link "Vendors"
-      assert_selector "a.is-active", text: "Accounts"
+      assert_no_selector "a.is-active", text: "Accounts"
     end
     assert_selector "h1", text: "Chart of accounts"
     assert_link "Rental Income"
@@ -70,6 +70,8 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Transactions"
     assert_selector ".transaction-table-header", text: /DATE/
     assert_selector ".transaction-table-header", text: /BALANCE/
+    assert_no_selector ".transaction-table-header", text: /ACCOUNT/
+    assert_no_selector "select[name='transaction[account_id]']"
     assert_selector ".transaction-row", count: 3
   end
 end
