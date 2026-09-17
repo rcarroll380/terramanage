@@ -5,10 +5,10 @@ class AccountsTest < ApplicationSystemTestCase
     visit accounts_path
 
     within "nav[aria-label='Primary navigation']" do
-      assert_no_link "Accounts"
+      assert_link "Accounts"
       assert_link "Customers"
       assert_link "Vendors"
-      assert_no_selector "a.is-active", text: "Accounts"
+      assert_selector "a.is-active", text: "Accounts"
     end
     assert_selector "h1", text: "Chart of accounts"
     assert_link "Rental Income"
