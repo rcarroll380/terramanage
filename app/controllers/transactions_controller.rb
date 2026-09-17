@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
 
     if @transaction.save
       Transaction.recalculate_balances!(@current_book)
-      redirect_to transactions_path, notice: "Transaction added."
+      redirect_to transactions_path(account_id: @transaction.account_id), notice: "Transaction added."
     else
       load_form_options
       @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
 
     if @transaction.update(attributes)
       Transaction.recalculate_balances!(@current_book)
-      redirect_to transactions_path, notice: "Transaction updated."
+      redirect_to transactions_path(account_id: @transaction.account_id), notice: "Transaction updated."
     else
       load_form_options
       @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered

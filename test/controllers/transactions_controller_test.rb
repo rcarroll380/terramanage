@@ -38,7 +38,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     transaction = Transaction.order(:created_at).last
     assert_equal books(:my_rentals), transaction.book
     assert_equal 1750.to_d, transaction.balance
-    assert_redirected_to transactions_url
+    assert_redirected_to transactions_url(account_id: accounts(:rental_income).id)
   end
 
   test "filters transactions by their main account" do
@@ -57,6 +57,6 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 300.to_d, transactions(:plumbing_payment).reload.payment
     assert_equal 1200.to_d, transactions(:plumbing_payment).balance
-    assert_redirected_to transactions_url
+    assert_redirected_to transactions_url(account_id: accounts(:rental_income).id)
   end
 end
