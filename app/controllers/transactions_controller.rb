@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: :update
 
   def index
-    @transactions = @current_book.transactions.includes(:account, :entity).ordered
+    @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
     @transaction = @current_book.transactions.new(date: Date.current)
     @accounts = @current_book.accounts.ordered
     @entities = Entity.order(:name)
@@ -17,7 +17,7 @@ class TransactionsController < ApplicationController
       redirect_to transactions_path, notice: "Transaction added."
     else
       load_form_options
-      @transactions = @current_book.transactions.includes(:account, :entity).ordered
+      @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
       render :index, status: :unprocessable_content
     end
   end
@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
       redirect_to transactions_path, notice: "Transaction updated."
     else
       load_form_options
-      @transactions = @current_book.transactions.includes(:account, :entity).ordered
+      @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
       @transaction = @current_book.transactions.new(date: Date.current)
       render :index, status: :unprocessable_content
     end
@@ -48,8 +48,15 @@ class TransactionsController < ApplicationController
       @entities = Entity.order(:name)
     end
 
+    def transaction_scope
+      scope = @current_book.transactions
+      account_id = params[:account_id]
+      scope = scope.where(account_id: account_id) if account_id.present? && @current_book.accounts.exists?(id: account_id)
+      scope
+    end
+
     def transaction_params
-      permitted = params.expect(transaction: [ :date, :number, :entity_id, :payment, :deposit, :account_id, :memo, :reconciled ])
+      permitted = params.expect(transaction: [ :date, :number, :entity_id, :payment, :deposit, :account_id, :category_account_id, :memo, :reconciled ])
       permitted[:entity_id] = nil if permitted[:entity_id].blank?
       permitted
     end

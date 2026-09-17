@@ -1,11 +1,13 @@
 class Transaction < ApplicationRecord
   belongs_to :book
   belongs_to :account
+  belongs_to :category_account, class_name: "Account"
   belongs_to :entity
 
-  validates :date, :account, presence: true
+  validates :date, :account, :category_account, presence: true
   validates :payment, :deposit, :balance, numericality: true
   validate :account_belongs_to_book
+  validate :category_account_belongs_to_book
   validate :entity_is_vendor_or_customer
 
   scope :ordered, -> { order(:date, :id) }
@@ -38,6 +40,12 @@ class Transaction < ApplicationRecord
       return if entity.blank? || entity.vendor? || entity.customer?
 
       errors.add(:entity, "must be a vendor or customer")
+    end
+
+    def category_account_belongs_to_book
+      return if category_account.blank? || book.blank? || category_account.book_id == book_id
+
+      errors.add(:category_account, "must belong to the same book")
     end
 
     def normalize_amount(value)

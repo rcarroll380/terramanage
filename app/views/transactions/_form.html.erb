@@ -13,6 +13,7 @@
   <div class="transaction-amount-field deposit-field"><span class="currency-prefix">$</span><%= form.text_field :deposit, value: (transaction.deposit.to_d.zero? ? "" : number_to_currency(transaction.deposit, unit: "", format: "%n", delimiter: ",")), inputmode: "decimal", data: { transaction_amounts_target: "deposit" }, aria: { label: "Deposit" } %></div>
   <div class="transaction-balance"><%= number_to_currency(transaction.balance) %></div>
   <div><%= form.select :account_id, options_from_collection_for_select(@accounts, :id, ->(account) { "#{account.number} — #{account.name}" }, transaction.account_id), { include_blank: "Choose account" }, aria: { label: "Account" } %></div>
+  <div><%= form.select :category_account_id, options_from_collection_for_select(@accounts, :id, ->(account) { "#{account.number} — #{account.name}" }, transaction.category_account_id), { include_blank: "Choose category" }, required: true, aria: { label: "Category account" } %></div>
   <div class="row-action"><%= form.submit transaction.persisted? ? "Save" : "Add", class: "text-link" %></div>
   <div class="transaction-memo"><%= form.label :memo, "Memo" %><%= form.text_field :memo, aria: { label: "Memo" }, placeholder: "Optional" %></div>
 <% end %>

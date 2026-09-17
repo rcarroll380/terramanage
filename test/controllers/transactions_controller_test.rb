@@ -13,6 +13,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".transaction-memo input[name='transaction[memo]']", count: 3
     assert_select ".payment-field input", count: 3
     assert_select ".deposit-field input", count: 3
+    assert_select "select[name='transaction[category_account_id]']", count: 3
   end
 
   test "creates a transaction for the current book" do
@@ -22,6 +23,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
           date: "2026-01-03",
           entity_id: entities(:landlord).id,
           account_id: accounts(:rental_income).id,
+          category_account_id: accounts(:base_rent).id,
           deposit: "500.00",
           payment: "0",
           memo: "February rent",
@@ -36,9 +38,18 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to transactions_url
   end
 
+  test "filters transactions by their main account" do
+    get transactions_url(account_id: accounts(:rental_income).id)
+
+    assert_response :success
+    assert_select ".transaction-container", count: 3
+    assert_select "#transaction_40000000-0000-4000-8000-000000000001", count: 1
+    assert_select "#transaction_40000000-0000-4000-8000-000000000002", count: 1
+  end
+
   test "updates a transaction inline" do
     patch transaction_url(transactions(:plumbing_payment)), params: {
-      transaction: { payment: "300.00", entity_id: entities(:plumber).id, account_id: accounts(:rental_income).id }
+      transaction: { payment: "300.00", entity_id: entities(:plumber).id, account_id: accounts(:rental_income).id, category_account_id: accounts(:base_rent).id }
     }
 
     assert_equal 300.to_d, transactions(:plumbing_payment).reload.payment
