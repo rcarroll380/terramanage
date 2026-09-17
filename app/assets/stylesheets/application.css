@@ -270,6 +270,8 @@ a { color: inherit; }
 .transaction-memo { display: flex; align-items: center; grid-column: 4 / -1; grid-row: 2; gap: 8px; padding: 0 7px 8px; color: #98a39d; }
 .transaction-memo input { flex: 1; }
 .transaction-memo input { color: var(--muted); font-size: 13px; }
+.transaction-ending-balance { padding: 16px 24px; border-top: 1px solid var(--line); color: var(--muted); text-align: right; }
+.transaction-ending-balance strong { color: var(--ink); font-variant-numeric: tabular-nums; }
 .transaction-amount-field { display: flex; align-items: center; }
 .transaction-amount-field input { min-width: 0; padding: 10px 16px !important; text-align: right; }
 

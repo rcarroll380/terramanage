@@ -27,4 +27,5 @@
       <%= render "form", transaction: @transaction, new_transaction: true %>
     </div>
   </div>
+  <div class="transaction-ending-balance">Ending Balance: <strong><%= number_to_currency(@ending_balance) %></strong></div>
 </section>

@@ -6,6 +6,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "h1", "Transactions"
+    assert_select ".transaction-ending-balance", text: /Ending Balance: \$1,250\.00/
     assert_select ".transaction-row", count: 3
     assert_select "#transaction_40000000-0000-4000-8000-000000000001"
     assert_select "#transaction_40000000-0000-4000-8000-000000000001 .transaction-balance", text: "$1,500.00"

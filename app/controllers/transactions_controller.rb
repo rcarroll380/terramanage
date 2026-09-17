@@ -4,6 +4,7 @@ class TransactionsController < ApplicationController
 
   def index
     @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
+    @ending_balance = ending_balance
     @accounts = @current_book.accounts.ordered
     @entities = Entity.order(:name)
     @transaction = new_transaction
@@ -18,6 +19,7 @@ class TransactionsController < ApplicationController
     else
       load_form_options
       @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
+      @ending_balance = ending_balance
       render :index, status: :unprocessable_content
     end
   end
@@ -32,6 +34,7 @@ class TransactionsController < ApplicationController
     else
       load_form_options
       @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
+      @ending_balance = ending_balance
       @transaction = new_transaction
       render :index, status: :unprocessable_content
     end
@@ -62,6 +65,10 @@ class TransactionsController < ApplicationController
       account_id = params[:account_id]
       scope = scope.where(account_id: account_id) if account_id.present? && @current_book.accounts.exists?(id: account_id)
       scope
+    end
+
+    def ending_balance
+      transaction_scope.order(date: :desc, id: :desc).pick(:balance) || 0
     end
 
     def transaction_params
