@@ -47,6 +47,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     get transactions_url(account_id: accounts(:rental_income).id)
 
     assert_response :success
+    assert_select "h1", "3000 — Rental Income"
     assert_select ".transaction-container", count: 3
     assert_select "#transaction_40000000-0000-4000-8000-000000000001", count: 1
     assert_select "#transaction_40000000-0000-4000-8000-000000000002", count: 1

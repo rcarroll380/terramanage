@@ -3,6 +3,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: :update
 
   def index
+    @account = selected_account
     @transactions = transaction_scope.includes(:account, :category_account, :entity).ordered
     @ending_balance = ending_balance
     @accounts = @current_book.accounts.ordered
@@ -62,9 +63,12 @@ class TransactionsController < ApplicationController
 
     def transaction_scope
       scope = @current_book.transactions
-      account_id = params[:account_id]
-      scope = scope.where(account_id: account_id) if account_id.present? && @current_book.accounts.exists?(id: account_id)
+      scope = scope.where(account_id: @account.id) if @account
       scope
+    end
+
+    def selected_account
+      @current_book.accounts.find_by(id: params[:account_id]) if params[:account_id].present?
     end
 
     def ending_balance
