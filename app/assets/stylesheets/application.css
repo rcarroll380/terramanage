@@ -263,12 +263,12 @@ a { color: inherit; }
   outline: none;
   box-shadow: 0 0 0 2px rgba(29, 107, 74, 0.1);
 }
+.transaction-row input:focus::placeholder { color: transparent; }
 .transaction-new { background: #f7faf7; }
 .transaction-balance { padding: 6px 7px; font-variant-numeric: tabular-nums; text-align: right; }
-.transaction-memo { display: flex; align-items: center; grid-column: 1 / -1; gap: 8px; padding: 0 7px 8px; }
-.transaction-memo label { color: var(--muted); font-size: 12px; font-weight: 700; }
+.transaction-category { grid-column: 3; grid-row: 2; }
+.transaction-memo { display: flex; align-items: center; grid-column: 4 / 8; grid-row: 2; gap: 8px; padding: 0 7px 8px; color: #98a39d; }
 .transaction-memo input { flex: 1; }
-.transaction-memo { grid-column: 3; grid-row: 2; color: #98a39d; }
 .transaction-memo input { color: var(--muted); font-size: 13px; }
 .transaction-amount-field { display: flex; align-items: center; }
 .currency-prefix { padding-left: 7px; color: var(--muted); }
