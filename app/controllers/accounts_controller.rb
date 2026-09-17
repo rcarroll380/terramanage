@@ -61,7 +61,7 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      permitted = params.expect(account: [ :parent_id, :account_type, :name, :number, :active ])
+      permitted = params.expect(account: [ :parent_id, :account_type, :name, :number, :description, :active ])
       permitted[:parent_id] = nil if permitted[:parent_id].blank?
       permitted
     end

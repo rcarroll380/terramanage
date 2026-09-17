@@ -39,6 +39,11 @@
       <p class="field-help">Choose a main account to make this a subaccount.</p>
     </div>
 
+    <div class="field field-wide">
+      <%= form.label :description, "Description" %>
+      <%= form.text_area :description, rows: 3, placeholder: "Optional description" %>
+    </div>
+
     <label class="check-field field-wide">
       <%= form.checkbox :active %>
       <span>

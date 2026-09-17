@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_17_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_17_010000) do
   create_table "accounts", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "account_type", null: false
     t.boolean "active", default: true, null: false
+    t.decimal "balance", precision: 12, scale: 2, default: "0.0", null: false
     t.string "book_id", limit: 36, null: false
     t.datetime "created_at", null: false
+    t.text "description"
     t.string "name", null: false
     t.string "number", null: false
     t.string "parent_id", limit: 36

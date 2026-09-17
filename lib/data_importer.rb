@@ -32,7 +32,7 @@ module DataImporter
           number, name = parse_account(row[0])
           type = account_type(row[1])
           account = Account.find_or_initialize_by(book: @book, number: number)
-          account.assign_attributes(name: name, account_type: type, active: true)
+          account.assign_attributes(name: name, account_type: type, description: row[3].presence, active: true)
           account.save!
           account
         end
