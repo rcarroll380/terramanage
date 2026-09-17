@@ -7,6 +7,6 @@
     <p>Update this vendor's details, address, or active status.</p>
   </div>
   <div class="panel form-panel">
-    <%= render "customers/form", customer: @vendor, entity_label: "Vendor" %>
+    <%= render "customers/form", customer: @vendor, entity_label: "Vendor", collection_path: vendors_path, resource_path: vendor_path(@vendor) %>
   </div>
 </section>

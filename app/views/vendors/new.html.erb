@@ -7,6 +7,6 @@
     <p>Add a vendor and their optional US mailing address.</p>
   </div>
   <div class="panel form-panel">
-    <%= render "customers/form", customer: @vendor, entity_label: "Vendor" %>
+    <%= render "customers/form", customer: @vendor, entity_label: "Vendor", collection_path: vendors_path %>
   </div>
 </section>

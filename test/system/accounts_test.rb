@@ -44,4 +44,14 @@ class AccountsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Edit vendor"
     assert_field "Vendor name", with: "Acme Plumbing"
   end
+
+  test "creating a vendor stays on the vendor list" do
+    visit new_vendor_path
+    fill_in "Vendor name", with: "Acme Electric"
+    click_button "Create vendor"
+
+    assert_current_path vendors_path
+    assert_selector "h1", text: "Vendors"
+    assert_text "Acme Electric"
+  end
 end

@@ -1,7 +1,9 @@
 <% entity_label = local_assigns.fetch(:entity_label, "Customer") %>
+<% collection_path = local_assigns.fetch(:collection_path, customers_path) %>
+<% resource_path = local_assigns[:resource_path] %>
 <%= form_with(
   model: customer,
-  url: customer.persisted? ? customer_path(customer) : customers_path,
+  url: customer.persisted? ? resource_path : collection_path,
   method: customer.persisted? ? :patch : :post,
   class: "customer-form"
 ) do |form| %>
