@@ -309,7 +309,6 @@ a { color: inherit; }
   padding-left: calc(var(--account-depth) * 28px);
   font-weight: 680;
 }
-.account-description { color: var(--muted); font-size: 12px; font-weight: 400; }
 
 .account-name a,
 .text-link,
